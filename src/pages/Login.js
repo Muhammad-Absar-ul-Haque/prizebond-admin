@@ -97,7 +97,7 @@ export default function Login({ onLogin }) {
               <input
                 style={s.input}
                 type="email"
-                placeholder="admin@prizebond.pk"
+                placeholder="Enter your email"
                 value={email}
                 onChange={(e) => { setEmail(e.target.value); clearFieldErr('email'); setError(''); }}
                 autoComplete="email"
@@ -145,18 +145,7 @@ export default function Login({ onLogin }) {
           </button>
         </form>
 
-        {/* Hint */}
-        <div style={s.hint}>
-          <div style={s.hintTitle}>🧪 Test Credentials</div>
-          <div style={s.hintRow}>
-            <span style={s.hintKey}>Email</span>
-            <span style={s.hintVal}>admin@prizebond.pk</span>
-          </div>
-          <div style={s.hintRow}>
-            <span style={s.hintKey}>Password</span>
-            <span style={s.hintVal}>admin123</span>
-          </div>
-        </div>
+
       </div>
 
       {/* Footer */}
@@ -316,25 +305,7 @@ const s = {
     animation: 'spin 0.7s linear infinite',
   },
 
-  hint: {
-    marginTop: 22,
-    background: '#07090f',
-    border: '1px solid #1a2d47',
-    borderRadius: 10,
-    padding: '12px 16px',
-  },
-  hintTitle: {
-    fontSize: 11, fontWeight: 600,
-    color: '#e8b84b', marginBottom: 8,
-    fontFamily: "'DM Mono', monospace",
-    letterSpacing: 0.5,
-  },
-  hintRow: {
-    display: 'flex', justifyContent: 'space-between',
-    alignItems: 'center', marginBottom: 4,
-  },
-  hintKey: { fontSize: 10, color: '#304d68', fontFamily: "'DM Mono', monospace", textTransform: 'uppercase', letterSpacing: 1 },
-  hintVal: { fontSize: 11, color: '#6a8fad', fontFamily: "'DM Mono', monospace" },
+
 
   footer: {
     marginTop: 24,
