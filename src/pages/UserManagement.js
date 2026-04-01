@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { users as usersService } from '../services/api';
+import { useToast } from '../context/ToastContext';
 import Topbar from '../components/Topbar';
 import StatusBadge from '../components/StatusBadge';
-import ConfirmModal from '../components/ConfirmModal';
 import UserDetailPanel from '../components/UserDetailPanel';
-import { listUsers, updateUserStatus } from '../services/api';
-import { useToast } from '../context/ToastContext';
+import ConfirmModal from '../components/ConfirmModal';
 
 const FILTERS = ['ALL', 'PENDING', 'ACTIVE', 'REJECTED'];
 
@@ -22,15 +22,17 @@ export default function UserManagement({ onStatsUpdate }) {
   const fetchUsers = useCallback(async () => {
     setLoading(true);
     try {
-      const data = await listUsers();
+      const data = await usersService.listAll();
       setUsers(data);
       onStatsUpdate && onStatsUpdate(data);
-    } catch {
-      show('Failed to load users', 'error');
+    } catch (err) {
+      if (err.message === 'AUTH_EXPIRED') return;
+      show(err.message || 'Failed to load users', 'error');
     } finally {
       setLoading(false);
     }
   }, []);
+
 
   useEffect(() => { fetchUsers(); }, [fetchUsers]);
 
@@ -59,7 +61,7 @@ export default function UserManagement({ onStatsUpdate }) {
     if (!confirm) return;
     setActionLoading(confirm.status);
     try {
-      await updateUserStatus(confirm.userId, confirm.status);
+      await usersService.updateStatus(confirm.userId, confirm.status);
       setUsers((prev) => prev.map((u) => u.id === confirm.userId ? { ...u, status: confirm.status } : u));
       if (selectedUser?.id === confirm.userId) {
         setSelectedUser((prev) => ({ ...prev, status: confirm.status }));
@@ -70,13 +72,15 @@ export default function UserManagement({ onStatsUpdate }) {
           : `${confirm.userName} has been rejected`,
         confirm.status === 'ACTIVE' ? 'success' : 'error'
       );
-    } catch {
-      show('Failed to update status', 'error');
+    } catch (err) {
+      if (err.message === 'AUTH_EXPIRED') return;
+      show(err.message || 'Failed to update status', 'error');
     } finally {
       setActionLoading(null);
       setConfirm(null);
     }
   };
+
 
   const openApprove = (user, e) => {
     e?.stopPropagation();

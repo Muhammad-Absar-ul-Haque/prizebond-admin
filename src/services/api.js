@@ -1,76 +1,106 @@
 // src/services/api.js
-// Mock implementation — replace BASE_URL and remove mock data when backend is ready
 
-const BASE_URL = 'http://localhost:3000/api';
+const BASE_URL = 'http://52.0.177.84:3000/api/v1/local';
 
-const delay = (ms) => new Promise((r) => setTimeout(r, ms));
+/**
+ * Generic request helper for API calls
+ */
+async function request(endpoint, options = {}) {
+  let token = localStorage.getItem('token');
 
-// ── Mock Data ──────────────────────────────────────────────────────────────────
-let mockUsers = [
-  { id: 'usr_001', firstName: 'Ali', lastName: 'Khan', email: 'ali.khan@gmail.com', mobile: '03001234567', city: 'Karachi', status: 'PENDING', createdAt: '2026-02-20T08:30:00Z' },
-  { id: 'usr_002', firstName: 'Sara', lastName: 'Ahmed', email: 'sara.ahmed@yahoo.com', mobile: '03111234567', city: 'Lahore', status: 'PENDING', createdAt: '2026-02-21T10:15:00Z' },
-  { id: 'usr_003', firstName: 'Hassan', lastName: 'Raza', email: 'hassan.raza@outlook.com', mobile: '03211234567', city: 'Islamabad', status: 'ACTIVE', createdAt: '2026-02-18T14:20:00Z' },
-  { id: 'usr_004', firstName: 'Fatima', lastName: 'Malik', email: 'fatima.malik@gmail.com', mobile: '03451234567', city: 'Peshawar', status: 'ACTIVE', createdAt: '2026-02-17T09:00:00Z' },
-  { id: 'usr_005', firstName: 'Usman', lastName: 'Sheikh', email: 'usman.sheikh@gmail.com', mobile: '03061234567', city: 'Faisalabad', status: 'REJECTED', createdAt: '2026-02-15T11:45:00Z' },
-  { id: 'usr_006', firstName: 'Aisha', lastName: 'Butt', email: 'aisha.butt@hotmail.com', mobile: '03331234567', city: 'Multan', status: 'PENDING', createdAt: '2026-02-22T07:10:00Z' },
-  { id: 'usr_007', firstName: 'Bilal', lastName: 'Siddiqui', email: 'bilal.sid@gmail.com', mobile: '03131234567', city: 'Karachi', status: 'ACTIVE', createdAt: '2026-02-16T16:30:00Z' },
-  { id: 'usr_008', firstName: 'Zara', lastName: 'Qureshi', email: 'zara.qureshi@gmail.com', mobile: '03551234567', city: 'Lahore', status: 'PENDING', createdAt: '2026-02-23T13:00:00Z' },
-  { id: 'usr_009', firstName: 'Kamran', lastName: 'Mirza', email: 'kamran.mirza@yahoo.com', mobile: '03021234567', city: 'Rawalpindi', status: 'REJECTED', createdAt: '2026-02-14T08:00:00Z' },
-  { id: 'usr_010', firstName: 'Nadia', lastName: 'Hussain', email: 'nadia.hussain@gmail.com', mobile: '03411234567', city: 'Sialkot', status: 'ACTIVE', createdAt: '2026-02-19T12:00:00Z' },
-];
+  // Strict check for invalid token values
+  if (token === 'undefined' || token === 'null') {
+    localStorage.removeItem('token');
+    token = null;
+  }
 
-// ── API Functions ──────────────────────────────────────────────────────────────
+  const headers = {
+    'Content-Type': 'application/json',
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...options.headers,
+  };
 
-export const listUsers = async (status) => {
-  await delay(600);
-  // MOCK: filter by status if provided
-  const filtered = status ? mockUsers.filter((u) => u.status === status) : mockUsers;
-  return [...filtered].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  const config = {
+    ...options,
+    headers,
+  };
 
-  /* REAL API — uncomment when backend is ready:
-  const url = new URL(`${BASE_URL}/admin/users`);
-  if (status) url.searchParams.set('status', status);
-  const res = await fetch(url.toString(), {
-    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-  });
-  if (!res.ok) throw new Error('Failed to fetch users');
-  return res.json();
-  */
+  try {
+    const response = await fetch(`${BASE_URL}${endpoint}`, config);
+    const data = await response.json();
+
+    if (!response.ok) {
+      const isAuthError = response.status === 401 || (response.status === 403 && data.message === 'User not authenticated');
+
+      if (isAuthError && !endpoint.includes('/auth/login')) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('admin');
+        throw new Error('AUTH_EXPIRED');
+      }
+      const errorMsg = data.message || data.error || `Error ${response.status}: ${response.statusText}`;
+      throw new Error(errorMsg);
+    }
+
+    return data;
+  } catch (error) {
+    console.error(`API Error [${endpoint}]:`, error.message);
+    throw error;
+  }
+}
+
+// ── Auth Endpoints ─────────────────────────────────────────────────────────────
+
+export const auth = {
+  register: (userData) => request('/auth/register', {
+    method: 'POST',
+    body: JSON.stringify(userData),
+  }),
+
+  login: (credentials) => request('/auth/login', {
+    method: 'POST',
+    body: JSON.stringify(credentials),
+  }),
+
+  sendOtp: (email) => request('/auth/send-otp', {
+    method: 'POST',
+    body: JSON.stringify({ email }),
+  }),
+
+  verifyOtp: (email, otp) => request('/auth/verify-otp', {
+    method: 'POST',
+    body: JSON.stringify({ email, otp }),
+  }),
+
+  resetPin: (resetData) => request('/auth/reset-pin', {
+    method: 'POST',
+    body: JSON.stringify(resetData),
+  }),
+
+  getMe: () => request('/auth/me', {
+    method: 'GET',
+  }),
 };
 
-export const updateUserStatus = async (userId, status) => {
-  await delay(500);
-  // MOCK: update in local array
-  const user = mockUsers.find((u) => u.id === userId);
-  if (!user) throw new Error('User not found');
-  user.status = status;
-  return { message: 'User status updated successfully', userId, status };
+// ── User Management Endpoints ─────────────────────────────────────────────────
 
-  /* REAL API — uncomment when backend is ready:
-  const res = await fetch(`${BASE_URL}/admin/users/${userId}/status`, {
+export const users = {
+  listAll: (status) => request(`/admin/user-management/users${status ? `?status=${status}` : ''}`, {
+    method: 'GET',
+  }),
+
+  getById: (id) => request(`/users/${id}`, {
+    method: 'GET',
+  }),
+
+  updateStatus: (id, status) => request(`/admin/user-management/users/${id}/status`, {
     method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    },
     body: JSON.stringify({ status }),
-  });
-  if (!res.ok) throw new Error('Failed to update user status');
-  return res.json();
-  */
+  }),
 };
 
-export const getUserById = async (userId) => {
-  await delay(400);
-  const user = mockUsers.find((u) => u.id === userId);
-  if (!user) throw new Error('User not found');
-  return user;
+// ── Legacy Exports (for backward compatibility during migration) ──────────────
+// These can be removed once all components are updated to use the objects above.
+export const listUsers = users.listAll;
+export const getUserById = users.getById;
+export const updateUserStatus = users.updateStatus;
 
-  /* REAL API:
-  const res = await fetch(`${BASE_URL}/admin/users/${userId}`, {
-    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-  });
-  if (!res.ok) throw new Error('User not found');
-  return res.json();
-  */
-};

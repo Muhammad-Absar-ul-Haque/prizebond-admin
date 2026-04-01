@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
+import { auth } from '../services/api';
 
-// Mock admin credentials — replace with real API call
-const MOCK_ADMIN = { email: 'admin@prizebond.pk', password: 'admin123' };
 
 const delay = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -25,38 +24,30 @@ export default function Login({ onLogin }) {
     ev.preventDefault();
     setError('');
     if (!validate()) return;
-    setLoading(true);
     try {
-      await delay(900); // simulate network
+      const data = await auth.login({ email, pin: password });
 
-      // ── MOCK CHECK ──────────────────────────────────────────
-      if (email !== MOCK_ADMIN.email || password !== MOCK_ADMIN.password) {
-        throw new Error('Invalid credentials. Please try again.');
+      // Check if user has ADMIN role
+      if (data.user?.role !== 'ADMIN' && data.role !== 'ADMIN') {
+        throw new Error('Access denied. This panel is for administrators only.');
       }
-      const fakeToken = 'mock-jwt-token-' + Date.now();
-      localStorage.setItem('token', fakeToken);
-      localStorage.setItem('admin', JSON.stringify({ email, name: 'Super Admin' }));
-      onLogin();
 
-      /* ── REAL API — uncomment when backend ready ─────────────
-      const res = await fetch('http://localhost:3000/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, pin: password }),
-      });
-      const data = await res.json();
-      if (!data.success) throw new Error(data.message);
-      if (data.user.role !== 'ADMIN') throw new Error('Access denied. Admin only.');
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('admin', JSON.stringify(data.user));
-      onLogin();
-      ── END REAL API ────────────────────────────────────────── */
+      // Look for token in both common keys
+      const token = data.accessToken || data.token || data.data?.accessToken || data.data?.token;
+      
+      if (!token) {
+        throw new Error('Authentication succeeded but no token was received. Please contact support.');
+      }
 
+      localStorage.setItem('token', token);
+      localStorage.setItem('admin', JSON.stringify(data.user || data));
+      onLogin();
     } catch (err) {
-      setError(err.message);
+      setError(err.message || 'An error occurred during login. Please try again.');
     } finally {
       setLoading(false);
     }
+
   };
 
   const clearFieldErr = (field) => setFieldErr((p) => ({ ...p, [field]: '' }));
