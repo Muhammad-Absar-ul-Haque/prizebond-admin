@@ -5,7 +5,7 @@ export default function UserDetailPanel({ user, onClose, onApprove, onReject, ac
   if (!user) return null;
 
   const fullName = `${user.firstName} ${user.lastName}`;
-  const initials = `${user.firstName[0]}${user.lastName[0]}`.toUpperCase();
+  const initials = `${(user.firstName || 'U')[0]}${(user.lastName || 'n')[0]}`.toUpperCase();
   const joined = new Date(user.createdAt).toLocaleDateString('en-PK', { day: 'numeric', month: 'long', year: 'numeric' });
 
   return (

@@ -43,8 +43,8 @@ export default function UserManagement({ onStatsUpdate }) {
       const q = search.toLowerCase();
       result = result.filter((u) =>
         `${u.firstName} ${u.lastName}`.toLowerCase().includes(q) ||
-        u.email.toLowerCase().includes(q) ||
-        u.city.toLowerCase().includes(q)
+        (u.email?.toLowerCase() || '').includes(q) ||
+        (u.city?.toLowerCase() || '').includes(q)
       );
     }
     setFiltered(result);
@@ -93,7 +93,7 @@ export default function UserManagement({ onStatsUpdate }) {
   };
 
   const formatDate = (iso) => new Date(iso).toLocaleDateString('en-PK', { day: 'numeric', month: 'short', year: 'numeric' });
-  const initials = (u) => `${u.firstName[0]}${u.lastName[0]}`.toUpperCase();
+  const initials = (u) => `${(u.firstName || 'U')[0]}${(u.lastName || 'n')[0]}`.toUpperCase();
 
   return (
     <div style={s.page}>
@@ -191,7 +191,7 @@ export default function UserManagement({ onStatsUpdate }) {
                         <div style={s.avatar}>{initials(user)}</div>
                         <div>
                           <div style={s.userName}>{user.firstName} {user.lastName}</div>
-                          <div style={s.userId}>#{user.id.slice(-6)}</div>
+                          <div style={s.userId}>#{String(user.id).slice(-6)}</div>
                         </div>
                       </div>
                     </td>
