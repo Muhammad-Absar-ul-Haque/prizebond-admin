@@ -20,6 +20,11 @@ async function request(endpoint, options = {}) {
     ...options.headers,
   };
 
+  // If Content-Type is explicitly set to undefined, remove it (useful for FormData)
+  if (options.headers && options.headers['Content-Type'] === undefined) {
+    delete headers['Content-Type'];
+  }
+
   const config = {
     ...options,
     headers,
@@ -95,6 +100,52 @@ export const users = {
   updateStatus: (id, status) => request(`/admin/user-management/users/${id}/status`, {
     method: 'PATCH',
     body: JSON.stringify({ status }),
+  }),
+};
+
+// ── Draw Management Endpoints ─────────────────────────────────────────────────
+
+export const draws = {
+  listAll: (denomination) => request(`/admin/draws${denomination ? `?denomination=${denomination}` : ''}`, {
+    method: 'GET',
+  }),
+
+  create: (drawData) => request('/admin/draws', {
+    method: 'POST',
+    body: JSON.stringify(drawData),
+  }),
+
+  getById: (id) => request(`/admin/draws/${id}`, {
+    method: 'GET',
+  }),
+
+  deleteResults: (id) => request(`/admin/draws/${id}/pdf`, {
+    method: 'DELETE',
+  }),
+
+  importResults: (id, file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    return request(`/admin/draws/${id}/import-results`, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Content-Type': undefined, // Let fetch set it
+      }
+    });
+  }
+};
+
+// ── Notifications Endpoints ───────────────────────────────────────────────────
+
+export const notifications = {
+  list: () => request('/notifications', {
+    method: 'GET',
+  }),
+
+  markAsRead: (id) => request(`/notifications/${id}/read`, {
+    method: 'PATCH',
   }),
 };
 

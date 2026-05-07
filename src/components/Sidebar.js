@@ -6,7 +6,7 @@ const NAV = [
   { id: 'users',     icon: '◈', label: 'User Management', disabled: false               },
   { section: 'BONDS' },
   { id: 'bonds',     icon: '◉', label: 'Prize Bonds',     disabled: true,  soon: true  },
-  { id: 'draws',     icon: '◎', label: 'Draw Results',    disabled: true,  soon: true  },
+  { id: 'draws',     icon: '◎', label: 'Draw Results',    disabled: false               },
   { id: 'winners',   icon: '★', label: 'Winners',         disabled: true,  soon: true  },
   { section: 'SYSTEM' },
   { id: 'analytics', icon: '▣', label: 'Analytics',       disabled: true,  soon: true  },

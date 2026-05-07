@@ -191,7 +191,7 @@ export default function UserManagement({ onStatsUpdate }) {
                         <div style={s.avatar}>{initials(user)}</div>
                         <div>
                           <div style={s.userName}>{user.firstName} {user.lastName}</div>
-                          <div style={s.userId}>#{user.id.slice(-6)}</div>
+                          <div style={s.userId}>#{user.id}</div>
                         </div>
                       </div>
                     </td>

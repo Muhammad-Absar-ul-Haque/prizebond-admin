@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { auth } from './services/api';
 import Login from './pages/Login';
 import UserManagement from './pages/UserManagement';
+import DrawManagement from './pages/DrawManagement';
 import Sidebar from './components/Sidebar';
 import { ToastProvider } from './context/ToastContext';
 
@@ -104,6 +105,7 @@ export default function App() {
   const renderPage = () => {
     switch (page) {
       case 'users': return <UserManagement onStatsUpdate={(u) => setPending(u.filter((x) => x.status === 'PENDING').length)} />;
+      case 'draws': return <DrawManagement />;
       default:      return <PlaceholderPage title="Coming Soon" icon="◈" />;
     }
   };
