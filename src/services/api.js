@@ -106,9 +106,18 @@ export const users = {
 // ── Draw Management Endpoints ─────────────────────────────────────────────────
 
 export const draws = {
-  listAll: (denomination) => request(`/admin/draws${denomination ? `?denomination=${denomination}` : ''}`, {
-    method: 'GET',
-  }),
+  listAll: (params = {}) => {
+    const query = new URLSearchParams();
+    if (params.page) query.append('page', params.page);
+    if (params.limit) query.append('limit', params.limit);
+    if (params.denomination && params.denomination !== 'ALL') {
+      query.append('denomination', params.denomination);
+    }
+    const queryString = query.toString();
+    return request(`/admin/draws${queryString ? `?${queryString}` : ''}`, {
+      method: 'GET',
+    });
+  },
 
   create: (drawData) => request('/admin/draws', {
     method: 'POST',
@@ -134,7 +143,12 @@ export const draws = {
         'Content-Type': undefined, // Let fetch set it
       }
     });
-  }
+  },
+
+  bulkCreate: (draws) => request('/admin/draws/bulk', {
+    method: 'POST',
+    body: JSON.stringify({ draws }),
+  }),
 };
 
 // ── Notifications Endpoints ───────────────────────────────────────────────────

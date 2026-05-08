@@ -71,7 +71,12 @@ export default function ImportResultsModal({ draw, onClose, onSuccess }) {
                 disabled={!file || loading}
                 onClick={handleUpload}
               >
-                {loading ? 'Processing...' : 'Upload & Scrutinize'}
+                {loading ? (
+                  <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+                    <div style={s.btnSpinner} />
+                    Processing...
+                  </span>
+                ) : 'Upload & Scrutinize'}
               </button>
             </div>
           </div>
@@ -139,6 +144,7 @@ const s = {
   footer: { display: 'flex', gap: 12 },
   cancelBtn: { flex: 1, padding: '12px 0', borderRadius: 8, background: 'transparent', border: '1px solid #1a2d47', color: '#6a8fad', cursor: 'pointer', fontSize: 13, fontWeight: 600 },
   uploadBtn: { flex: 2, padding: '12px 0', borderRadius: 8, background: '#e8b84b', border: 'none', color: '#07090f', cursor: 'pointer', fontSize: 13, fontWeight: 800, fontFamily: "'Syne', sans-serif", textTransform: 'uppercase' },
+  btnSpinner: { width: 14, height: 14, borderRadius: '50%', border: '2px solid rgba(7,9,15,0.1)', borderTopColor: '#07090f', animation: 'spin 0.8s linear infinite' },
 
   successHeader: { textAlign: 'center', marginBottom: 10 },
   successIcon: { width: 48, height: 48, borderRadius: '50%', background: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.3)', color: '#4ade80', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, margin: '0 auto 16px' },
