@@ -103,6 +103,14 @@ export const users = {
   }),
 };
 
+// ── Dashboard Endpoints ───────────────────────────────────────────────────────
+
+export const dashboard = {
+  getStats: () => request('/admin/dashboard/stats', {
+    method: 'GET',
+  }),
+};
+
 // ── Draw Management Endpoints ─────────────────────────────────────────────────
 
 export const draws = {
@@ -160,6 +168,36 @@ export const notifications = {
 
   markAsRead: (id) => request(`/notifications/${id}/read`, {
     method: 'PATCH',
+  }),
+};
+
+// ── Marketplace Management Endpoints ──────────────────────────────────────────
+
+export const marketplace = {
+  listAll: (params = {}) => {
+    const query = new URLSearchParams();
+    if (params.page) query.append('page', params.page);
+    if (params.limit) query.append('limit', params.limit);
+    if (params.status && params.status !== 'ALL') query.append('status', params.status);
+    if (params.denomination && params.denomination !== 'ALL') query.append('denomination', params.denomination);
+    if (params.search) query.append('search', params.search);
+    const queryString = query.toString();
+    return request(`/admin/marketplace${queryString ? `?${queryString}` : ''}`, {
+      method: 'GET',
+    });
+  },
+
+  getById: (id) => request(`/admin/marketplace/${id}`, {
+    method: 'GET',
+  }),
+
+  updateStatus: (id, status) => request(`/admin/marketplace/${id}/status`, {
+    method: 'PATCH',
+    body: JSON.stringify({ status }),
+  }),
+
+  deleteListing: (id) => request(`/admin/marketplace/${id}`, {
+    method: 'DELETE',
   }),
 };
 

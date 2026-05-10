@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { auth } from './services/api';
 import Login from './pages/Login';
 import UserManagement from './pages/UserManagement';
+import Marketplace from './pages/Marketplace';
 import DrawManagement from './pages/DrawManagement';
+import Dashboard from './pages/Dashboard';
 import Sidebar from './components/Sidebar';
 import { ToastProvider } from './context/ToastContext';
 
@@ -44,7 +46,7 @@ const ps = {
 export default function App() {
   const [authed, setAuthed]         = useState(false);
   const [initialized, setInit]      = useState(false);
-  const [page, setPage]             = useState('users');
+  const [page, setPage]             = useState('dashboard');
   const [pendingCount, setPending]  = useState(0);
 
   // Global handler for session issues
@@ -104,7 +106,9 @@ export default function App() {
 
   const renderPage = () => {
     switch (page) {
+      case 'dashboard': return <Dashboard onNavigate={setPage} />;
       case 'users': return <UserManagement onStatsUpdate={(u) => setPending(u.filter((x) => x.status === 'PENDING').length)} />;
+      case 'marketplace': return <Marketplace />;
       case 'draws': return <DrawManagement />;
       default:      return <PlaceholderPage title="Coming Soon" icon="◈" />;
     }

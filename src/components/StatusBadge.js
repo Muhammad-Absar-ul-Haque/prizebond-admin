@@ -4,6 +4,8 @@ const config = {
   ACTIVE:   { color: '#4ade80', bg: 'rgba(34,197,94,0.1)',   border: 'rgba(34,197,94,0.25)',   dot: '#22c55e', label: 'Active'   },
   PENDING:  { color: '#fbbf24', bg: 'rgba(245,158,11,0.1)',  border: 'rgba(245,158,11,0.25)',  dot: '#f59e0b', label: 'Pending'  },
   REJECTED: { color: '#f87171', bg: 'rgba(239,68,68,0.1)',   border: 'rgba(239,68,68,0.25)',   dot: '#ef4444', label: 'Rejected' },
+  SOLD:     { color: '#60a5fa', bg: 'rgba(59,130,246,0.1)',  border: 'rgba(59,130,246,0.25)',  dot: '#3b82f6', label: 'Sold'     },
+  REMOVED:  { color: '#94a3b8', bg: 'rgba(148,163,184,0.1)', border: 'rgba(148,163,184,0.25)', dot: '#64748b', label: 'Removed'  },
 };
 
 export default function StatusBadge({ status }) {

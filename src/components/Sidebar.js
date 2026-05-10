@@ -1,16 +1,10 @@
 import React from 'react';
 
 const NAV = [
-  { section: 'MAIN' },
-  { id: 'dashboard', icon: '⬡', label: 'Dashboard',       disabled: true,  soon: true  },
+  { id: 'dashboard', icon: '⬡', label: 'Dashboard',       disabled: false },
   { id: 'users',     icon: '◈', label: 'User Management', disabled: false               },
-  { section: 'BONDS' },
-  { id: 'bonds',     icon: '◉', label: 'Prize Bonds',     disabled: true,  soon: true  },
+  { id: 'marketplace', icon: '🛒', label: 'Marketplace',    disabled: false               },
   { id: 'draws',     icon: '◎', label: 'Draw Results',    disabled: false               },
-  { id: 'winners',   icon: '★', label: 'Winners',         disabled: true,  soon: true  },
-  { section: 'SYSTEM' },
-  { id: 'analytics', icon: '▣', label: 'Analytics',       disabled: true,  soon: true  },
-  { id: 'settings',  icon: '◈', label: 'Settings',        disabled: true,  soon: true  },
 ];
 
 export default function Sidebar({ activePage, onNavigate, pendingCount, onLogout }) {
