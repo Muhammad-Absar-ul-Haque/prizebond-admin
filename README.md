@@ -120,8 +120,8 @@ Navigate to `src/services/api.js`:
 _(Tip: Replace these placeholders with actual high-quality screenshots of your application)_
 
 <div align="center">
-  <img src="https://via.placeholder.com/800x450/0f172a/eab308?text=Dashboard+Overview" alt="Dashboard View" width="48%">
-  <img src="https://via.placeholder.com/800x450/0f172a/eab308?text=User+Management+Table" alt="User Management" width="48%">
+  <img src="https://placehold.co/800x450/0f172a/eab308?text=Dashboard+Overview" alt="Dashboard View" width="48%">
+  <img src="https://placehold.co/800x450/0f172a/eab308?text=User+Management+Table" alt="User Management" width="48%">
 </div>
 
 ## 👨‍💻 Let's Connect!
@@ -131,8 +131,8 @@ I am actively looking for Frontend Developer roles. If you're looking for a deve
 **Muhammad Absar-ul-Haque**
 
 - **GitHub:** [@Muhammad-Absar-ul-Haque](https://github.com/Muhammad-Absar-ul-Haque)
-- **LinkedIn:** [Insert LinkedIn URL](linkedin.com/in/muhammad-absar-320205267)
-- **Email:** [Insert Your Email](mailto:absar.haque2003@gmail.com)
+- **LinkedIn:** [Muhammad Absar-ul-Haque](https://www.linkedin.com/in/muhammad-absar-320205267)
+- **Email:** [absar.haque2003@gmail.com](mailto:absar.haque2003@gmail.com)
 
 ---
 
