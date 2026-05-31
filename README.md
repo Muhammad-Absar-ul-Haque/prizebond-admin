@@ -115,14 +115,7 @@ Navigate to `src/services/api.js`:
 2. Swap the mock functions with the provided real `fetch` logic.
 3. JWT token handling via `localStorage` is pre-configured.
 
-## 📸 Screenshots
 
-_(Tip: Replace these placeholders with actual high-quality screenshots of your application)_
-
-<div align="center">
-  <img src="https://placehold.co/800x450/0f172a/eab308?text=Dashboard+Overview" alt="Dashboard View" width="48%">
-  <img src="https://placehold.co/800x450/0f172a/eab308?text=User+Management+Table" alt="User Management" width="48%">
-</div>
 
 ## 👨‍💻 Let's Connect!
 
