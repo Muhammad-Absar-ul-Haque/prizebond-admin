@@ -1,6 +1,6 @@
 // src/services/api.js
 
-const BASE_URL = 'http://52.0.177.84:3000/api/v1/local';
+const BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:3000/api/v1/local';
 
 /**
  * Generic request helper for API calls

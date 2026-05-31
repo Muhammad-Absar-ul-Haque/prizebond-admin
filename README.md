@@ -79,12 +79,19 @@ Follow these instructions to run the application locally.
    cd prizebond-admin
    ```
 
-2. **Install dependencies:**
+2. **Environment Variables:**
+   Create a `.env` file based on the example:
+   ```bash
+   cp .env.example .env
+   ```
+   *Update `REACT_APP_API_BASE_URL` with your actual backend endpoint if needed.*
+
+3. **Install dependencies:**
    ```bash
    npm install
    ```
 
-3. **Start the development server:**
+4. **Start the development server:**
    ```bash
    npm start
    ```
