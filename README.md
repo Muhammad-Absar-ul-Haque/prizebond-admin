@@ -28,7 +28,7 @@ This project demonstrates strong frontend architecture, state management, compon
 
 - **Advanced User Management:** Comprehensive data table with real-time search and status filtering (Pending, Active, Rejected).
 - **Interactive Analytics:** Visualized data using `recharts` for tracking system performance and user statistics.
-- **Seamless UX/UI:** 
+- **Seamless UX/UI:**
   - Custom slide-over detail panels for quick viewing.
   - Interactive confirmation modals for critical actions (Approve/Reject).
   - Global, context-driven toast notification system.
@@ -57,7 +57,7 @@ src/
 │   └── UserDetailPanel.js # Slide-over contextual view
 ├── context/             # Global state management (e.g., ToastContext)
 ├── pages/               # Top-level route components
-│   └── UserManagement.js 
+│   └── UserManagement.js
 ├── services/            # API integration layer (Mock & Real endpoints)
 ├── App.js               # Application root & layout wrapper
 └── index.css            # Global design tokens and utilities
@@ -68,12 +68,14 @@ src/
 Follow these instructions to run the application locally.
 
 ### Prerequisites
+
 - Node.js (v14.0.0 or higher)
 - npm or yarn
 
 ### Installation
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/Muhammad-Absar-ul-Haque/prizebond-admin.git
    cd prizebond-admin
@@ -81,36 +83,41 @@ Follow these instructions to run the application locally.
 
 2. **Environment Variables:**
    Create a `.env` file based on the example:
+
    ```bash
    cp .env.example .env
    ```
-   *Update `REACT_APP_API_BASE_URL` with your actual backend endpoint if needed.*
+
+   _Update `REACT_APP_API_BASE_URL` with your actual backend endpoint if needed._
 
 3. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 4. **Start the development server:**
+
    ```bash
    npm start
    ```
 
-4. **View the app:**
-   Open [http://localhost:3001](http://localhost:3001) in your browser. *(Note: Defaults to 3001 to prevent conflicts with backend services).*
+5. **View the app:**
+   Open [http://localhost:3001](http://localhost:3001) in your browser. _(Note: Defaults to 3001 to prevent conflicts with backend services)._
 
 ## 🔌 API Integration Setup
 
 The project is structured to easily transition from mock data to a live backend API.
 
 Navigate to `src/services/api.js`:
+
 1. Update `BASE_URL` to your production endpoint.
 2. Swap the mock functions with the provided real `fetch` logic.
 3. JWT token handling via `localStorage` is pre-configured.
 
 ## 📸 Screenshots
 
-*(Tip: Replace these placeholders with actual high-quality screenshots of your application)*
+_(Tip: Replace these placeholders with actual high-quality screenshots of your application)_
 
 <div align="center">
   <img src="https://via.placeholder.com/800x450/0f172a/eab308?text=Dashboard+Overview" alt="Dashboard View" width="48%">
@@ -122,12 +129,13 @@ Navigate to `src/services/api.js`:
 I am actively looking for Frontend Developer roles. If you're looking for a developer who cares about architecture, design, and performance, let's talk!
 
 **Muhammad Absar-ul-Haque**
+
 - **GitHub:** [@Muhammad-Absar-ul-Haque](https://github.com/Muhammad-Absar-ul-Haque)
-- **LinkedIn:** [Insert LinkedIn URL](https://linkedin.com/in/your-profile)
-- **Portfolio:** [Insert Portfolio URL](https://your-portfolio.com)
-- **Email:** [Insert Your Email](mailto:your.email@example.com)
+- **LinkedIn:** [Insert LinkedIn URL](linkedin.com/in/muhammad-absar-320205267)
+- **Email:** [Insert Your Email](mailto:absar.haque2003@gmail.com)
 
 ---
+
 <div align="center">
   <i>If you found this project interesting, please consider giving it a ⭐!</i>
 </div>
