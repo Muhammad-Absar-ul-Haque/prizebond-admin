@@ -248,8 +248,8 @@ export default function Dashboard({ onNavigate }) {
 }
 
 const s = {
-  page: { display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' },
-  content: { flex: 1, overflowY: 'auto', padding: 24, display: 'flex', flexDirection: 'column', gap: 24 },
+  page: { display: 'flex', flexDirection: 'column', height: '100%', minHeight: 0, overflow: 'hidden' },
+  content: { flex: 1, minHeight: 0, overflowY: 'auto', padding: 24, display: 'flex', flexDirection: 'column', gap: 24 },
 
   loadingWrap: { flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16 },
   spinner: { width: 32, height: 32, borderRadius: '50%', border: '3px solid rgba(232,184,75,0.1)', borderTopColor: '#e8b84b', animation: 'spin 1s linear infinite' },

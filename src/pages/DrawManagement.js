@@ -410,10 +410,12 @@ const s = {
     display: "flex",
     flexDirection: "column",
     height: "100%",
+    minHeight: 0,
     overflow: "hidden",
   },
   content: {
     flex: 1,
+    minHeight: 0,
     overflowY: "auto",
     padding: 24,
     display: "flex",
@@ -421,7 +423,7 @@ const s = {
     gap: 20,
   },
 
-  statsRow: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 14 },
+  statsRow: { flexShrink: 0, display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 14 },
   statCard: {
     background: "#0b1120",
     border: "1px solid #1a2d47",
@@ -448,6 +450,7 @@ const s = {
   },
 
   toolbar: {
+    flexShrink: 0,
     display: "flex",
     alignItems: "center",
     gap: 16,
@@ -556,13 +559,21 @@ const s = {
   },
 
   tableWrap: {
+    flex: 1,
+    minHeight: 0,
     background: "#0b1120",
     border: "1px solid #1a2d47",
     borderRadius: 12,
-    overflow: "hidden",
+    overflowY: "auto",
   },
   table: { width: "100%", borderCollapse: "collapse" },
-  theadRow: { background: "#07090f", borderBottom: "1px solid #1a2d47" },
+  theadRow: {
+    background: "#07090f",
+    borderBottom: "1px solid #1a2d47",
+    position: "sticky",
+    top: 0,
+    zIndex: 1,
+  },
   th: {
     padding: "12px 16px",
     textAlign: "left",
@@ -670,6 +681,7 @@ const s = {
   emptySub: { fontSize: 13, color: "#1a2d47", marginTop: 8 },
 
   pagination: {
+    flexShrink: 0,
     marginTop: 20,
     display: "flex",
     alignItems: "center",

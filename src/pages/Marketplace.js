@@ -246,10 +246,10 @@ export default function Marketplace() {
 }
 
 const s = {
-  page: { display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden', background: '#07090f' },
-  content: { flex: 1, overflowY: 'auto', padding: 24, display: 'flex', flexDirection: 'column', gap: 18 },
+  page: { display: 'flex', flexDirection: 'column', height: '100%', minHeight: 0, overflow: 'hidden', background: '#07090f' },
+  content: { flex: 1, minHeight: 0, overflowY: 'auto', padding: 24, display: 'flex', flexDirection: 'column', gap: 18 },
   
-  statsRow: { display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 },
+  statsRow: { flexShrink: 0, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 },
   statCard: {
     background: '#0b1120', border: '1px solid #1a2d47', borderRadius: 10,
     padding: '16px 18px', display: 'flex', alignItems: 'center', gap: 14,
@@ -258,7 +258,7 @@ const s = {
   statLabel: { fontSize: 11, color: '#304d68', textTransform: 'uppercase', letterSpacing: 1.5, fontFamily: "'DM Mono', monospace" },
   statValue: { fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: 28, lineHeight: 1.1, marginTop: 2 },
 
-  toolbar: { display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' },
+  toolbar: { flexShrink: 0, display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' },
   filterGroup: { display: 'flex', gap: 12, alignItems: 'center' },
   filterTabs: { display: 'flex', gap: 4, background: '#0b1120', border: '1px solid #1a2d47', borderRadius: 8, padding: 4 },
   filterTab: {
@@ -291,9 +291,9 @@ const s = {
     cursor: 'pointer', fontFamily: "'DM Sans', sans-serif",
   },
 
-  tableWrap: { background: '#0b1120', border: '1px solid #1a2d47', borderRadius: 12, overflow: 'hidden' },
+  tableWrap: { flex: 1, minHeight: 0, background: '#0b1120', border: '1px solid #1a2d47', borderRadius: 12, overflowY: 'auto' },
   table: { width: '100%', borderCollapse: 'collapse' },
-  theadRow: { background: '#07090f', borderBottom: '1px solid #1a2d47' },
+  theadRow: { background: '#07090f', borderBottom: '1px solid #1a2d47', position: 'sticky', top: 0, zIndex: 1 },
   th: {
     padding: '12px 16px', textAlign: 'left',
     fontSize: 10, fontWeight: 600, color: '#304d68',
@@ -332,7 +332,7 @@ const s = {
     fontSize: 11, fontWeight: 600, cursor: 'pointer',
   },
 
-  pagination: { display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 20, marginTop: 10 },
+  pagination: { flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 20, marginTop: 10 },
   pageBtn: {
     background: '#0b1120', border: '1px solid #1a2d47', color: '#e2eaf5',
     padding: '6px 16px', borderRadius: 8, cursor: 'pointer', fontSize: 12,

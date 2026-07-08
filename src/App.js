@@ -118,7 +118,7 @@ export default function App() {
     <ToastProvider>
       <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', background: '#07090f' }}>
         <Sidebar activePage={page} onNavigate={setPage} pendingCount={pendingCount} onLogout={handleLogout} />
-        <main style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        <main style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
           {renderPage()}
         </main>
       </div>

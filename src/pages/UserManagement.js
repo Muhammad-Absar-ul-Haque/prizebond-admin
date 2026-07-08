@@ -275,10 +275,10 @@ export default function UserManagement({ onStatsUpdate }) {
 }
 
 const s = {
-  page: { display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' },
-  content: { flex: 1, overflowY: 'auto', padding: 24, display: 'flex', flexDirection: 'column', gap: 18 },
+  page: { display: 'flex', flexDirection: 'column', height: '100%', minHeight: 0, overflow: 'hidden' },
+  content: { flex: 1, minHeight: 0, overflowY: 'auto', padding: 24, display: 'flex', flexDirection: 'column', gap: 18 },
 
-  statsRow: { display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 },
+  statsRow: { flexShrink: 0, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 },
   statCard: {
     background: '#0b1120', border: '1px solid #1a2d47', borderRadius: 10,
     padding: '16px 18px', display: 'flex', alignItems: 'center', gap: 14,
@@ -288,7 +288,7 @@ const s = {
   statLabel: { fontSize: 11, color: '#304d68', textTransform: 'uppercase', letterSpacing: 1.5, fontFamily: "'DM Mono', monospace" },
   statValue: { fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: 28, lineHeight: 1.1, marginTop: 2 },
 
-  toolbar: { display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' },
+  toolbar: { flexShrink: 0, display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' },
   filterTabs: { display: 'flex', gap: 4, background: '#0b1120', border: '1px solid #1a2d47', borderRadius: 8, padding: 4 },
   filterTab: {
     padding: '6px 14px', borderRadius: 6, border: 'none', cursor: 'pointer',
@@ -319,9 +319,9 @@ const s = {
     transition: 'all 0.15s', whiteSpace: 'nowrap',
   },
 
-  tableWrap: { background: '#0b1120', border: '1px solid #1a2d47', borderRadius: 12, overflow: 'hidden' },
+  tableWrap: { flex: 1, minHeight: 0, background: '#0b1120', border: '1px solid #1a2d47', borderRadius: 12, overflowY: 'auto' },
   table: { width: '100%', borderCollapse: 'collapse' },
-  theadRow: { background: '#07090f', borderBottom: '1px solid #1a2d47' },
+  theadRow: { background: '#07090f', borderBottom: '1px solid #1a2d47', position: 'sticky', top: 0, zIndex: 1 },
   th: {
     padding: '12px 16px', textAlign: 'left',
     fontSize: 10, fontWeight: 600, color: '#304d68',
@@ -389,5 +389,5 @@ const s = {
   emptyText: { fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 16, color: '#304d68' },
   emptySub: { fontSize: 12.5, color: '#1a2d47', marginTop: 6 },
 
-  tableFooter: { fontSize: 12, color: '#304d68', padding: '4px 0', fontFamily: "'DM Mono', monospace" },
+  tableFooter: { flexShrink: 0, fontSize: 12, color: '#304d68', padding: '4px 0', fontFamily: "'DM Mono', monospace" },
 };
